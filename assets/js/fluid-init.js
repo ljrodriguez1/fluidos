@@ -25,20 +25,16 @@ SOFTWARE.
 let canvas = document.getElementsByClassName('fluid-canvas')[0];
 resizeCanvas();
 
-var script_tag = document.getElementById('fluid-canvas1');
-console.log(script_tag )
-var pressure1 = script_tag.getAttribute("pressure1");
-console.log(pressure1)
 let config = {
     SIM_RESOLUTION: 128,
     DYE_RESOLUTION: 1024,
     CAPTURE_RESOLUTION: 512,
     DENSITY_DISSIPATION: 0, // 1 for gradual dissipation, 0 for no dissipation
-    VELOCITY_DISSIPATION: 1,
-    PRESSURE: pressure1,
+    VELOCITY_DISSIPATION: 0.2,
+    PRESSURE: 0.8,
     PRESSURE_ITERATIONS: 20,
-    CURL: 0,
-    SPLAT_RADIUS: 0.2,
+    CURL: 30,
+    SPLAT_RADIUS: 0.25,
     SPLAT_FORCE: 6000,
     SHADING: true,
     COLORFUL: true,
@@ -46,13 +42,13 @@ let config = {
     PAUSED: false,
     BACK_COLOR: { r: 255, g: 255, b: 255 },
     TRANSPARENT: false,
-    BLOOM: false,
+    BLOOM: true,
     BLOOM_ITERATIONS: 8,
     BLOOM_RESOLUTION: 256,
     BLOOM_INTENSITY: 0.8,
     BLOOM_THRESHOLD: 0.6,
     BLOOM_SOFT_KNEE: 0.7,
-    SUNRAYS: false,
+    SUNRAYS: true,
     SUNRAYS_RESOLUTION: 196,
     SUNRAYS_WEIGHT: 1.0,
 }
@@ -605,7 +601,7 @@ function updateKeywords () {
 
 updateKeywords();
 initFramebuffers();
-//multipleSplats(parseInt(Math.random() * 20) + 5);
+multipleSplats(parseInt(Math.random() * 20) + 5);
 
 let lastUpdateTime = Date.now();
 let colorUpdateTimer = 0.0;
@@ -1016,8 +1012,6 @@ function correctDeltaY (delta) {
 
 function generateColor () {
     let c = HSVtoRGB(Math.random(), 1.0, 1.0);
-    //let c = HSVtoRGB(0.5, 1.0, 1.0);
-
     c.r *= 0.15;
     c.g *= 0.15;
     c.b *= 0.15;
